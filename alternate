@@ -1,3 +1,6 @@
+# I added a histogram for Instrumentalness, Valence, and Liveness.
+# Do we need to include an example of the regression with the indicator variable?
+
 ---
   title: "STA302 Assignment 1"
 output: html_document
