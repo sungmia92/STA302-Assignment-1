@@ -1,4 +1,4 @@
-# R Code wa
+#Note: R Code was made on GitHub so all group members could access the code.
 ---
 title: "STA302 Assignment 1"
 output: html_document
