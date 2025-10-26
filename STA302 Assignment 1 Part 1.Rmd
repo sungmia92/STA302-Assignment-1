@@ -6,7 +6,7 @@ date: "2025-10-24"
 ---
   
   ```{r setup, include=FALSE}
-spotify <- read.csv(file="/Users/danielfragomeni/downloads/spotify-2023.csv", header=T)
+spotify <- read.csv(file="/Users/danielfragomeni/Library/CloudStorage/OneDrive-UniversityofToronto/spotify-2023.csv", header=T)
 ```
 
 ## R Markdown
