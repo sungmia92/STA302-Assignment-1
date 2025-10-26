@@ -1,0 +1,92 @@
+---
+  title: "STA302 Assignment 1"
+output: html_document
+date: "2025-10-24"
+---
+  
+  ```{r setup, include=FALSE}
+spotify <- read.csv(file="/Users/danielfragomeni/downloads/spotify-2023.csv", header=T)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+  
+  ```{r spotify}
+spotify$mode <- as.factor(spotify$mode)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+  
+  ```{r predictors, echo=FALSE}
+hist(as.numeric(spotify$streams), main = "Histogram of Popularity",
+     xlab = "Streams", ylab = "Frequency",
+     col = "skyblue", border = "black")
+hist(spotify$energy_., main = "Histogram of Energy",
+     xlab = "Percent", ylab = "Frequency",
+     col = "skyblue", border = "black")
+hist(spotify$danceability_., main = "Histogram of Danceability",
+     xlab = "Percent", ylab = "Frequency",
+     col = "skyblue", border = "black")
+hist(spotify$acousticness_., main = "Histogram of Acousticness",
+     xlab = "Percent", ylab = "Frequency",
+     col = "skyblue", border = "black")
+hist(spotify$speechiness_., main = "Histogram of Speechiness",
+     xlab = "Percent", ylab = "Frequency",
+     col = "skyblue", border = "black")
+hist(spotify$bpm, main = "Histogram of BPM",
+     xlab = "BPM", ylab = "Frequency",
+     col = "skyblue", border = "black")
+hist(spotify$released_month, main = "Histogram of Released Month",
+     xlab = "Month", ylab = "Frequency",
+     col = "skyblue", border = "black")
+hist(spotify$instrumentalness_., main = "Histogram of Instrumentalness",
+     xlab = "Instrumentalness", ylab = "Frequency",
+     col = "skyblue", border = "black")
+hist(spotify$valence_., main = "Histogram of Valence",
+     xlab = "Valence", ylab = "Frequency",
+     col = "skyblue", border = "black")
+hist(spotify$liveness_., main = "Histogram of Liveness",
+     xlab = "Liveness", ylab = "Frequency",
+     col = "skyblue", border = "black")
+plot(spotify$energy_., spotify$valence_., 
+     main = "Scatterplot of Energy vs Valence",
+     xlab = "Energy", ylab = "Valence",
+     col = "blue", pch = 19)
+plot(spotify$bpm, spotify$danceability_., 
+     main = "Scatterplot of BPM vs Danceability",
+     xlab = "BPM", ylab = "Danceability",
+     col = "blue", pch = 19)
+# Preliminary Model Fitting (Standardized and Unstandardized)
+prelim_standardized <- lm(as.numeric(streams) ~ scale(energy_.) + scale(danceability_.) + scale(acousticness_.) + scale(speechiness_.) + scale(bpm) + scale(instrumentalness_.) + scale(valence_.) + scale(liveness_.) + mode, data = spotify)
+summary(prelim_standardized)
+prelim_unstandardized <- lm(as.numeric(streams) ~ energy_. + danceability_. + acousticness_. + speechiness_. + bpm + instrumentalness_. + valence_. + liveness_. + mode, data = spotify)
+summary(prelim_unstandardized)
+# Diagnostic Plots
+fitted_prelim <- fitted(prelim_standardized)
+residuals_prelim <- resid(prelim_standardized)
+layout(matrix(1:2, nrow = 1, byrow = TRUE))
+plot(fitted_prelim, residuals_prelim,
+     main = "Residuals vs Fitted",
+     xlab = "Fitted Values", ylab = "Residuals",
+     col = "blue", pch = 19)
+abline(h = 0, col = "red", lty = 2)
+qqnorm(residuals_prelim,
+       main = "Normal Q-Q Plot",
+       col = "blue", pch = 19)
+qqline(residuals_prelim, col = "red", lty = 2)
+# hist(residuals_prelim,
+#      main = "Histogram of Residuals",
+#      xlab = "Residuals", ylab = "Frequency",
+#      col = "skyblue", border = "black")
+# plot(fitted_prelim, sqrt(abs(residuals_prelim)),
+#      main = "Scale-Location Plot",
+#      xlab = "Fitted Values", ylab = "Sqrt(|Residuals|)",
+#      col = "blue", pch = 19)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
