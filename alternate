@@ -1,6 +1,6 @@
 # I added a histogram for Instrumentalness, Valence, and Liveness.
 # Do we need to include an example of the regression with the indicator variable?
-
+# Only one column was removed because the total stream count was not entered correctly, determined by a visual inspection.
 ---
   title: "STA302 Assignment 1"
 output: html_document
